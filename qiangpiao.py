@@ -8,9 +8,18 @@
 
 from splinter.browser import Browser
 from time import sleep
+import json
 import traceback
 import time,sys
 import os
+
+#处理地址
+def get_12306addr(addr):
+    all_addr = {'台州':'TZH','上海':'SHH'}
+    
+    #1.将中文转unicode
+    ascii_addr = json.dumps(addr,ensure_ascii=True).replace("\"","").replace("\\","%")
+    return ascii_addr + '%2C' + all_addr[addr]
 
 class huoche(object):
     '''docstring for huoche'''
@@ -20,8 +29,8 @@ class huoche(object):
     #用户名和密码
     username = u'419936222@qq.com'
     passwd   = u'chengyong120522'
-    start_addr = u'台州'
-    end_addr   = u'上海'
+    start_addr = get_12306addr('台州')
+    end_addr   = get_12306addr('上海')
     
     #时间
     dtime = u'2018-01-30'
@@ -127,6 +136,3 @@ class huoche(object):
 if __name__ == '__main__':
     huoche = huoche()
     huoche.start()
-                    
-            
-    
