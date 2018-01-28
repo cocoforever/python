@@ -39,11 +39,14 @@ class huoche(object):
     order = 0
     
     #乘客名字
-    passengers = [u'',u'']
+    passengers = [u'程勇']
     
     #席位座次
     seating = u'二等座'
     adult   = u'成人票'
+    
+    #座位
+    seats = ['A']
     
     #网址
     ticket_url = "https://kyfw.12306.cn/otn/leftTicket/init"
@@ -77,7 +80,7 @@ class huoche(object):
         self.driver.visit(self.ticket_url)
         try:
             print('购票页面开始...')
-            sleep(1)
+            ##sleep(1)
             
             #加载查询信息
             self.driver.cookies.add({"_jc_save_fromStation":self.start_addr})
@@ -91,10 +94,10 @@ class huoche(object):
                     self.driver.find_by_text('查询').click()
                     count += 1
                     print('循环点击查询...第{}次'.format(count))
-                    sleep(1)
+                    #sleep(1)
                     
                     try:
-                        self.driver.find_by_text('预定').click()
+                        self.driver.find_by_text('预订').click()
                     except Exception as e:
                         print(e)
                         print('还没开始预定')
@@ -107,27 +110,29 @@ class huoche(object):
                     sleep(1)
                     
                     try:
-                        for i in self.driver.find_by_text('预定'):
+                        for i in self.driver.find_by_text('预订'):
                             i.click()
-                            sleep(1)
+                            #sleep(1)
                     except Exception as e:
                         print(e)
-                        print('还没开始预定 {}'.format(count))
+                        print('还没开始预订 {}'.format(count))
                         continue
             
-            print('开始预定')
-            sleep(3)
+            print('开始预订')
+            sleep(1)
             
             print('开始选择用户')
             for user in self.passengers:
                 self.driver.find_by_text(user).last.click()
             
             print('提交订单')
-            sleep(1)
+            #sleep(1)
             self.driver.find_by_id('submitOrder_id').click()
             
-            sleep(1.5)
+            #sleep(1.5)
             print('开始选座')
+            for i in range(len(self.passengers)):
+                self.driver.find_by_id(str(i+1)+self.seats[i]).last.click()
             self.driver.find_by_id('qr_submit_id').click()
         
         except Exception as e:
