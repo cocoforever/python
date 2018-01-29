@@ -27,8 +27,8 @@ class huoche(object):
     executable_path = ''
     
     #用户名和密码
-    username = u'419936222@qq.com'
-    passwd   = u'chengyong120522'
+    username = u''
+    passwd   = u''
     start_addr = get_12306addr('台州')
     end_addr   = get_12306addr('上海')
     
@@ -39,7 +39,7 @@ class huoche(object):
     order = 0
     
     #乘客名字
-    passengers = [u'程勇']
+    passengers = [u'']
     
     #席位座次
     seating = u'二等座'
@@ -131,8 +131,8 @@ class huoche(object):
             
             #sleep(1.5)
             print('开始选座')
-            for i in range(len(self.passengers)):
-                self.driver.find_by_id(str(i+1)+self.seats[i]).last.click()
+            #for i in range(len(self.passengers)):
+                #self.driver.find_by_id(str(i+1)+self.seats[i]).last.click()
             self.driver.find_by_id('qr_submit_id').click()
         
         except Exception as e:
